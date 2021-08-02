@@ -34,3 +34,11 @@ void insereListaA(ListaA* lista, Pessoa* amigo) {
     }
 }
 
+CelulaA* retornaProx(CelulaA* cel) {
+    return cel->prox;
+}
+
+char* retornaNomeAmigo(CelulaA* cel) {
+    return retornaNome(cel->amigo);
+}
+

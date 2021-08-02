@@ -11,5 +11,8 @@ void insereListaA(ListaA* lista, Pessoa* amigo);
 
 void liberaListaA(ListaA* lista);
 
+CelulaA* retornaProx(CelulaA* cel);
+
+char* retornaNomeAmigo(CelulaA* cel);
 
 #endif
