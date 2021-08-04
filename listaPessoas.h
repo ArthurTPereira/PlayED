@@ -2,7 +2,7 @@
 #define LISTAPESSOAS_H_
 
 #include "amizade.h"
-
+#include "playlist.h"
 
 typedef struct listaP ListaP;
 
@@ -19,5 +19,7 @@ ListaA* retornaListaA(ListaP* lista, char* pessoa);
 void imprime(ListaP* lista);
 
 Pessoa* retornaPessoaP(ListaP* lista, char* pessoa);
+
+ListaPlaylist* retornaPlaylistsP(ListaP* lista, char* pessoa);
 
 #endif

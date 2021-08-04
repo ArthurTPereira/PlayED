@@ -7,9 +7,13 @@ typedef struct listaA ListaA;
 
 ListaA* inicListaA();
 
+CelulaA* alocaCelulaA();
+
 void insereListaA(ListaA* lista, Pessoa* amigo);
 
 void liberaListaA(ListaA* lista);
+
+CelulaA* retornaPrim(ListaA* lista);
 
 CelulaA* retornaProx(CelulaA* cel);
 
