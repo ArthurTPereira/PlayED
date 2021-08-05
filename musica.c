@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "musica.h"
-#include "playlist.h"
 
 struct celulaM {
     char* musica;
@@ -17,6 +16,10 @@ struct listaM {
 
 ListaM* inicListaM() {
     ListaM* lista = (ListaM*) malloc(sizeof(ListaM));
+    if (lista == NULL) {
+        printf("Falha na alocação.\n");
+        return NULL;
+    }
 
     lista->prim = NULL;
     lista->ult = NULL;
@@ -27,23 +30,30 @@ ListaM* inicListaM() {
 Musica* alocaCelulaM() {
     Musica* musica = (Musica*) malloc(sizeof(Musica));
     if (musica == NULL) {
-        printf("erro malocc");
-        exit(1);
+        printf("Falha na alocação.\n");
+        return NULL;
     }
     
     return musica;
 }
 
-void insereListaM(ListaM* lista, char* musica) {// tem q botar 2 char depois
+void insereListaM(ListaM* lista, char* musica) {
     Musica* music = alocaCelulaM();
-    music->musica = strdup(musica); // serase ta certo assim
-
-    music->prox = lista->prim;
-    lista->prim = music;
+    music->musica = strdup(musica);
+    if (music->musica == NULL) {
+        printf("Falha na alocação.\n");
+        return;
+    }
+    music->prox = NULL;
 
     if (lista->ult == NULL) {
-        lista->ult = music;
+        lista->prim = music;
+    } else {
+        lista->ult->prox = music;
     }
+    
+    lista->ult = music;
+
 }
 
 void imprimeMusicas(ListaM* lista) {

@@ -3,8 +3,6 @@
 #include <string.h>
 #include "pessoa.h"
 #include "listaPessoas.h"
-#include "musica.h"
-#include "playlist.h"
 
 struct celulaP {
     Pessoa* pessoa;
@@ -22,8 +20,8 @@ struct listaP {
 ListaP* inicListaP() {
     ListaP* lista = (ListaP*) malloc(sizeof(ListaP));
     if (lista == NULL) {
-        printf("erro alloc");
-        exit(1);
+        printf("Falha na alocação.\n");
+        return NULL;
     }
     
     
@@ -37,8 +35,8 @@ ListaP* inicListaP() {
 CelulaP* criaCelulaP() {
     CelulaP* celula = (CelulaP*) malloc(sizeof(CelulaP));
     if (celula == NULL) {
-        printf("erro aloc");
-        exit(1);
+        printf("Falha na alocação.\n");
+        return NULL;
     }
     
     return celula;
@@ -48,17 +46,18 @@ CelulaP* criaCelulaP() {
 void insereListaP(ListaP* lista, Pessoa* pessoa) {
     CelulaP* celula = criaCelulaP();
     celula->pessoa = pessoa;
+    celula->prox = NULL;
     
-    //Inicializa a sentinela da lista de amigos
     celula->amigos = inicListaA();  // Nao foi liberado isso aqui
     celula->playlists = inicListaPlaylists(); // Nao foi liberado
 
-    celula->prox = lista->prim;
-    lista->prim = celula;
-
     if (lista->ult == NULL) {
-        lista->ult = celula;
+        lista->prim = celula;
+    } else {
+        lista->ult->prox = celula;
     }
+    
+    lista->ult = celula;
 }
 
 //Libera a memoria da lista de pessoas(acho q essa funçao vai ter que liberar tudo)

@@ -4,9 +4,6 @@
 #include <sys/stat.h>
 #include "pessoa.h"
 #include "listaPessoas.h"
-#include "amizade.h"
-#include "playlist.h"
-#include "musica.h"
 
 int main() {
 
@@ -69,6 +66,8 @@ int main() {
                 fscanf(play," %[^\n]\n",musica);
                 insereListaM(retornaListaM(retornaPlaylistsP(pessoas,user),pt2),musica);
             }
+            printf("-----------------------------------\n");
+            imprimeMusicas(retornaListaM(retornaPlaylistsP(pessoas,user),pt2));
             pt2 = strtok(NULL,";");
         }
         fclose(play);

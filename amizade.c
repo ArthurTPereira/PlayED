@@ -16,6 +16,10 @@ struct listaA {
 //Inicializa a lista de amigos
 ListaA* inicListaA() {
     ListaA* lista = (ListaA*) malloc(sizeof(ListaA));
+    if (lista == NULL) {
+        printf("Falha na alocação.\n");
+        return NULL;
+    }
     
     lista->prim = NULL;
     lista->ult = NULL;
@@ -27,8 +31,8 @@ ListaA* inicListaA() {
 CelulaA* alocaCelulaA() {
     CelulaA* celula = (CelulaA*) malloc(sizeof(CelulaA));
     if (celula == NULL) {
-        printf("falhou o maloc");
-        exit(1);
+        printf("Falha na alocação.\n");
+        return NULL;
     }
     return celula;
 }
@@ -37,13 +41,15 @@ CelulaA* alocaCelulaA() {
 void insereListaA(ListaA* lista, Pessoa* amigo) {
     CelulaA* celula = alocaCelulaA();
     celula->amigo = amigo;
-
-    celula->prox = lista->prim;
-    lista->prim = celula;
+    celula->prox = NULL;
 
     if (lista->ult == NULL) {
-        lista->ult = celula;
+        lista->prim = celula;
+    } else {
+        lista->ult->prox = celula;
     }
+    
+    lista->ult = celula;
 }
 
 //Retorna o primeiro amigo da lista

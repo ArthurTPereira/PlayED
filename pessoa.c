@@ -9,13 +9,24 @@ struct pessoa {
 
 Pessoa* criaPessoa(char* nome) {
     Pessoa* pessoa = (Pessoa*) malloc(sizeof(Pessoa));
+    if (pessoa == NULL) {
+        printf("Falha na alocação.\n");
+        return NULL;
+    }
+
     pessoa->nome = strdup(nome);
+    if (pessoa->nome == NULL) {
+        printf("Falha na alocação.\n");
+        return NULL;
+    }
     return pessoa;
 }
 
 void destroiPessoa(Pessoa* pessoa) {
     free(pessoa->nome);
-    free(pessoa);   
+    pessoa->nome = NULL;
+    free(pessoa);
+    pessoa = NULL;
 }
 
 char* retornaNome(Pessoa* pessoa) {
