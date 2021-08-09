@@ -13,7 +13,6 @@ struct listaA {
     CelulaA* ult;
 };
 
-//Inicializa a lista de amigos
 ListaA* inicListaA() {
     ListaA* lista = (ListaA*) malloc(sizeof(ListaA));
     if (lista == NULL) {
@@ -27,7 +26,6 @@ ListaA* inicListaA() {
     return lista;
 }
 
-//Aloca uma celula de amigo e verifica alocacao
 CelulaA* alocaCelulaA() {
     CelulaA* celula = (CelulaA*) malloc(sizeof(CelulaA));
     if (celula == NULL) {
@@ -37,7 +35,6 @@ CelulaA* alocaCelulaA() {
     return celula;
 }
 
-//Insere uma pessoa na lista de amigos (Recebe a lista de amigos da pessoa e recebe a pessoa a ser adicionada)
 void insereListaA(ListaA* lista, Pessoa* amigo) {
     CelulaA* celula = alocaCelulaA();
     celula->amigo = amigo;
@@ -52,17 +49,14 @@ void insereListaA(ListaA* lista, Pessoa* amigo) {
     lista->ult = celula;
 }
 
-//Retorna o primeiro amigo da lista
-CelulaA* retornaPrim(ListaA* lista) {
+CelulaA* retornaPrimAmigo(ListaA* lista) {
     return lista->prim;
 }
 
-//Retorna a proxima celula 
-CelulaA* retornaProx(CelulaA* cel) {
+CelulaA* retornaProxAmigo(CelulaA* cel) {
     return cel->prox;
 }
 
-//Retorna o nome do amigo da celula
 char* retornaNomeAmigo(CelulaA* cel) {
     return retornaNome(cel->amigo);
 }

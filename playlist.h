@@ -23,6 +23,7 @@ ListaPlaylist* inicListaPlaylists();
  */
 void insereListaPlaylist(ListaPlaylist* lista, char* playlist);
 
+//Função temporária
 void imprimeplaylists(ListaPlaylist* lista);
 
 /* Retorna ponteiro para sentinela da lista de músicas de uma playlist com base no nome

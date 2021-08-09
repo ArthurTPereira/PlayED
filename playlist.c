@@ -36,7 +36,7 @@ Playlist* criaCelulaPlaylist() {
         return NULL;
     }
 
-    play->musicas = inicListaM(); // Nao foi liberado
+    play->musicas = inicListaM();
 
     return play;
 }
@@ -70,7 +70,6 @@ void imprimeplaylists(ListaPlaylist* lista) {
     }
 }
 
-//Retorna lista de musicas de uma playlist com base no nome
 ListaM* retornaListaM(ListaPlaylist* lista, char* playlist) {
     Playlist* p;
     for (p = lista->prim; p != NULL; p = p->prox) {

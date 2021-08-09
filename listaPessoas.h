@@ -32,6 +32,7 @@ void insereListaP(ListaP* lista, Pessoa* pessoa);
  */
 ListaA* retornaListaA(ListaP* lista, char* pessoa);
 
+//Função temporária
 void imprime(ListaP* lista);
 
 /* Retorna struct de pessoa
@@ -50,6 +51,23 @@ Pessoa* retornaPessoaP(ListaP* lista, char* pessoa);
  */
 ListaPlaylist* retornaPlaylistsP(ListaP* lista, char* pessoa);
 
+/* Retorna primeira pessoa de uma lista
+ * Input: Lista de pessoas
+ * Output: Ponteiro para celula da primeira pessoa da lista
+ * Pre-condição: A lista existe e está corretamente alocada
+ * Pos-condição: A lista permanece inalterada
+*/ 
+CelulaP* retornaPrimPessoa(ListaP* lista);
+
+/* Retorna a proxima pessoa de uma celula
+ * Input: Celula de uma pessoa
+ * Output: Ponteiro para celula da proxima pessoa da celula
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A celula permance inalterada
+*/
+CelulaP* retornaProxPessoa(CelulaP* pessoa);
+
+//Função em construção
 void liberaListaP(ListaP* lista);
 
 #endif

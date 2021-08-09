@@ -1,8 +1,14 @@
+/* Trabalho I - Estrutura de Dados 
+ * Universidade Federal do Espírito Santo 
+ * 2021/1 - Patricia Dockhorn Costa
+ * Arthur Tartaglia Pereira e Karla Sancio
+ * Github: ArthurTPereira || KarlaSancio
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "pessoa.h"
 #include "listaPessoas.h"
 
 int main() {
@@ -11,7 +17,7 @@ int main() {
 
     FILE *amizade = fopen("Entrada/amizade.txt","r");
 
-    ListaP* pessoas = inicListaP(); //Unico ponteiro acessivel, liberar tudo no final (?)
+    ListaP* pessoas = inicListaP();
     
     char linha[1000];
     fscanf(amizade," %[^\n]\n",linha);
@@ -43,7 +49,7 @@ int main() {
     char* pt2;
     char param[] = "Entrada/";
     char InputPath[30];
-    FILE* play;
+    FILE* musicasPlaylist;
     char musica[100];
 
     while(!feof(playlists)) {
@@ -60,19 +66,18 @@ int main() {
 
             strcpy(InputPath,param);
             strcat(InputPath,pt2);
-            play = fopen(InputPath,"r");
+            musicasPlaylist = fopen(InputPath,"r");
 
-            while (!feof(play)) {
-                fscanf(play," %[^\n]\n",musica);
+            while (!feof(musicasPlaylist)) {
+                fscanf(musicasPlaylist," %[^\n]\n",musica);
                 insereListaM(retornaListaM(retornaPlaylistsP(pessoas,user),pt2),musica);
             }
             printf("-----------------------------------\n");
             imprimeMusicas(retornaListaM(retornaPlaylistsP(pessoas,user),pt2));
             pt2 = strtok(NULL,";");
         }
-        fclose(play);
+        fclose(musicasPlaylist);
     }
-
 
     fclose(playlists);
 

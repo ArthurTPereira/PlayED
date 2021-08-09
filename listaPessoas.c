@@ -16,7 +16,6 @@ struct listaP {
     CelulaP* ult;
 };
 
-//Inicializa a lista de pessoas e verifica alocacao
 ListaP* inicListaP() {
     ListaP* lista = (ListaP*) malloc(sizeof(ListaP));
     if (lista == NULL) {
@@ -31,7 +30,6 @@ ListaP* inicListaP() {
     return lista;
 }
 
-//Cria uma celula de uma pessoa e verifica alocacao
 CelulaP* criaCelulaP() {
     CelulaP* celula = (CelulaP*) malloc(sizeof(CelulaP));
     if (celula == NULL) {
@@ -42,14 +40,13 @@ CelulaP* criaCelulaP() {
     return celula;
 }
 
-//Insere uma pessoa na lista de pessoas
 void insereListaP(ListaP* lista, Pessoa* pessoa) {
     CelulaP* celula = criaCelulaP();
     celula->pessoa = pessoa;
     celula->prox = NULL;
     
-    celula->amigos = inicListaA();  // Nao foi liberado isso aqui
-    celula->playlists = inicListaPlaylists(); // Nao foi liberado
+    celula->amigos = inicListaA();
+    celula->playlists = inicListaPlaylists();
 
     if (lista->ult == NULL) {
         lista->prim = celula;
@@ -60,7 +57,6 @@ void insereListaP(ListaP* lista, Pessoa* pessoa) {
     lista->ult = celula;
 }
 
-//Libera a memoria da lista de pessoas(acho q essa funçao vai ter que liberar tudo)
 void liberaListaP(ListaP* lista) {
     CelulaP* p = lista->prim;
     CelulaP* t;
@@ -74,7 +70,6 @@ void liberaListaP(ListaP* lista) {
     free(lista);
 }
 
-//Retorna a lista de amigos de uma pessoa
 ListaA* retornaListaA(ListaP* lista, char* pessoa) {
     CelulaP* p = lista->prim;
 
@@ -90,18 +85,17 @@ void imprime(ListaP* lista) {
     for ( p = lista->prim; p != NULL; p = p->prox ) {
         printf("Amigos de %s:\n",retornaNome(p->pessoa));
 
-        CelulaA* t = retornaPrim(p->amigos);
+        CelulaA* t = retornaPrimAmigo(p->amigos);
         if (t == NULL) {
             printf("Nenhum\n");
         } else {
-            for ( t; t != NULL ; t = retornaProx(t)) {
+            for ( t; t != NULL ; t = retornaProxAmigo(t)) {
                 printf("%s\n",retornaNomeAmigo(t));
             }
         }
     }
 }
 
-//Retorna struct de uma pessoa em uma lista com base no nome
 Pessoa* retornaPessoaP(ListaP* lista, char* pessoa) {
     CelulaP* p;
     for (p = lista->prim; p != NULL; p = p->prox) {
@@ -113,7 +107,6 @@ Pessoa* retornaPessoaP(ListaP* lista, char* pessoa) {
     return NULL;
 }
 
-//Retorna ponteiro para sentinela de playlists de uma pessoa com base no nome
 ListaPlaylist* retornaPlaylistsP(ListaP* lista, char* pessoa) {
     CelulaP* p;
     for (p = lista->prim; p != NULL; p = p->prox) {
@@ -123,4 +116,12 @@ ListaPlaylist* retornaPlaylistsP(ListaP* lista, char* pessoa) {
     }
     
     return NULL;
+}
+
+CelulaP* retornaPrimPessoa(ListaP* lista) {
+    return lista->prim;
+}
+
+CelulaP* retornaProxPessoa(CelulaP* pessoa) {
+    return pessoa->prox;
 }

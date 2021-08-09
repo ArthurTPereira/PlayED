@@ -62,3 +62,15 @@ void imprimeMusicas(ListaM* lista) {
         printf("%s\n",p->musica);
     }
 }
+
+Musica* retornaPrimMusica(ListaM* lista) {
+    return lista->prim;
+}
+
+Musica* retornaProxMusica(Musica* musica) {
+    return musica->prox;
+}
+
+char* retornaNomeMusica(Musica* musica) {
+    return musica->musica;
+}
