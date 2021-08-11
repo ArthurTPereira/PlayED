@@ -80,7 +80,63 @@ int main() {
     for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
         ls = retornaListaPlaylistsP(p);
         ls = recriaPlaylists(retornaListaPlaylistsP(p));
+        alteraPlaylist(ls,p);
     }
+
+    int count;
+    char destino[100];
+    char nome[30];
+    char nomePlaylist[30];
+    Playlist* play;
+    Musica* nomeMusica;
+    FILE* novaPlaylist;
+    FILE* playedRefatorada = fopen("Saida/played-refatorada.txt","w");
+    for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
+        count = 0;
+        strcpy(destino,"Saida/");
+        strcpy(nome,retornaNomeCelulaP(p));
+        strcat(destino,nome);
+        strcat(destino,"/");
+        mkdir(destino,0777);
+
+        for (play = retornaPrimPlaylist(retornaListaPlaylistsP(p)); play != NULL; play = retornaProxPlaylist(play)) {
+            count++;
+            strcpy(destino,"Saida/");
+            strcat(destino,nome);
+            strcat(destino,"/");
+            
+            strcat(destino,retornaNomePlaylist(play));
+            strcat(destino,".txt");
+            novaPlaylist = fopen(destino,"w");
+            for (nomeMusica = retornaPrimMusica(retornaListaMusicas(play)); nomeMusica != NULL; nomeMusica = retornaProxMusica(nomeMusica)) {
+                fprintf(novaPlaylist,"%s\n",retornaNomeMusica(nomeMusica));
+            }
+        }
+        fclose(novaPlaylist);
+        
+        fprintf(playedRefatorada,"%s;%d",nome,count);
+        for (play = retornaPrimPlaylist(retornaListaPlaylistsP(p)); play != NULL; play = retornaProxPlaylist(play)) {
+            strcpy(nomePlaylist,retornaNomePlaylist(play));
+            strcat(nomePlaylist,".txt");
+            fprintf(playedRefatorada,";%s",nomePlaylist);
+        }
+        fprintf(playedRefatorada,"\n");
+    }
+    fclose(playedRefatorada);
+    
+
+    FILE* similaridades = fopen("Saida/similaridades.txt","w");
+    CelulaP* amigo;
+
+    for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
+        for (amigo = retornaPrimPessoa(pessoas); amigo != NULL; amigo = retornaProxPessoa(amigo)) {
+            if (verificaAmizade(p,amigo) == 1) {
+                fprintf(similaridades,"%s;%s;%d\n",retornaNomeCelulaP(p),retornaNomeCelulaP(amigo),verificaMusicasIguais(retornaListaPlaylistsP(p),retornaListaPlaylistsP(amigo)));
+            }
+        }
+    }
+
+    fclose(similaridades);
 
     return 0;
 }

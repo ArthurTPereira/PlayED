@@ -67,6 +67,8 @@ CelulaP* retornaPrimPessoa(ListaP* lista);
 */
 CelulaP* retornaProxPessoa(CelulaP* pessoa);
 
+CelulaP* retornaUltPessoa(ListaP* lista);
+
 //Função em construção
 void liberaListaP(ListaP* lista);
 
@@ -85,5 +87,11 @@ ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa);
  * Pos-condição: A celula permanece inalterada
 */
 char* retornaNomeCelulaP(CelulaP* pessoa);
+
+void alteraPlaylist(ListaPlaylist* playlist, CelulaP* pessoa);
+
+int verificaAmizade(CelulaP* pessoa1, CelulaP* amigo);
+
+ListaA* retornaListaAmigos(CelulaP* pessoa);
 
 #endif

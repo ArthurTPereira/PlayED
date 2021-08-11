@@ -126,10 +126,33 @@ CelulaP* retornaProxPessoa(CelulaP* pessoa) {
     return pessoa->prox;
 }
 
+CelulaP* retornaUltPessoa(ListaP* lista) {
+    return lista->ult;
+}
+
 ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa) {
     return pessoa->playlists;
 }
 
 char* retornaNomeCelulaP(CelulaP* pessoa) {
     return retornaNome(pessoa->pessoa);
+}
+
+void alteraPlaylist(ListaPlaylist* playlist, CelulaP* pessoa) {
+    pessoa->playlists = playlist;
+}
+
+int verificaAmizade(CelulaP* pessoa1, CelulaP* amigo) {
+    CelulaA* p;
+    for (p = retornaPrimAmigo(pessoa1->amigos); p != NULL; p = retornaProxAmigo(p)) {
+        if (strcmp(retornaNomeAmigo(p),retornaNomeCelulaP(amigo)) == 0) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+ListaA* retornaListaAmigos(CelulaP* pessoa) {
+    return pessoa->amigos;
 }

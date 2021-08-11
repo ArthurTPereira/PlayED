@@ -55,8 +55,7 @@ ListaPlaylist* recriaPlaylists(ListaPlaylist* lista) {
             if (retornaPrimPlaylist(nova) == NULL) {
                 insereListaPlaylist(nova,artista);
             } else {
-                if (buscaPlaylist(nova,artista) == 1) {
-                } else {
+                if (buscaPlaylist(nova,artista) == 0) {
                     insereListaPlaylist(nova,artista);
                 }
             }
@@ -75,4 +74,29 @@ ListaPlaylist* recriaPlaylists(ListaPlaylist* lista) {
     liberaListaPlaylists(lista);
         
     return nova;
+}
+
+int verificaMusicasIguais(ListaPlaylist* lista1, ListaPlaylist* lista2) {
+    int qtd = 0;
+
+    Playlist* p;
+    Playlist* q;
+    Musica* r;
+    Musica* s;
+
+    for (p = retornaPrimPlaylist(lista1); p != NULL; p = retornaProxPlaylist(p)) {
+        for (q = retornaPrimPlaylist(lista2); q != NULL; q = retornaProxPlaylist(q)) {
+            if (strcmp(retornaNomePlaylist(p),retornaNomePlaylist(q)) == 0) {
+                for (r = retornaPrimMusica(retornaListaMusicas(p)); r != NULL; r = retornaProxMusica(r)) {
+                    for (s = retornaPrimMusica(retornaListaMusicas(q)); s != NULL; s = retornaProxMusica(s)) {
+                        if (strcmp(retornaNomeMusica(r),retornaNomeMusica(s)) == 0) {
+                            qtd++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return qtd;
 }
