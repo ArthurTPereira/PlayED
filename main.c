@@ -126,15 +126,13 @@ int main() {
     
 
     FILE* similaridades = fopen("Saida/similaridades.txt","w");
-    CelulaP* amigo;
+    CelulaA* amigo;
 
     for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
-        for (amigo = retornaPrimPessoa(pessoas); amigo != NULL; amigo = retornaProxPessoa(amigo)) {
-            if (verificaAmizade(p,amigo) == 1) {
-                fprintf(similaridades,"%s;%s;%d\n",retornaNomeCelulaP(p),retornaNomeCelulaP(amigo),verificaMusicasIguais(retornaListaPlaylistsP(p),retornaListaPlaylistsP(amigo)));
+        for (amigo = retornaPrimAmigo(retornaListaAmigos(p)); amigo != NULL; amigo = retornaProxAmigo(amigo)) {
+                fprintf(similaridades,"%s;%s;%d\n",retornaNomeCelulaP(p),retornaNomeAmigo(amigo),verificaMusicasIguais(retornaListaPlaylistsP(p),retornaListaPlaylistsP(retornaCelulaPAmigo(amigo))));
             }
         }
-    }
 
     fclose(similaridades);
 

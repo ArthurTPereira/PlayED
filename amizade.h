@@ -6,6 +6,9 @@ typedef struct celulaA CelulaA;
 typedef struct listaA ListaA;
 
 #include "pessoa.h"
+#include "listaPessoas.h"
+
+typedef struct celulaP CelulaP;
 
 /* Inicializa a lista de amigos
  * Input: Nenhum
@@ -24,12 +27,12 @@ ListaA* inicListaA();
 CelulaA* alocaCelulaA();
 
 /* Insere um amigo na lista de amigos
- * Input: Lista de amigos e ponteiro para a pessoa a ser adicionada
+ * Input: Lista de amigos e ponteiro para a celula de pessoa a ser adicionada
  * Output: Nenhum
  * Pre-condição: A lista e o amigo existem e estão corretamente alocados
  * Pos-condição: O amigo é adicionado no final da lista e a lista não é quebrada
  */
-void insereListaA(ListaA* lista, Pessoa* amigo);
+void insereListaA(ListaA* lista, CelulaP* amigo);
 
 //Função em construção
 void liberaListaA(ListaA* lista);
@@ -57,5 +60,13 @@ CelulaA* retornaProxAmigo(CelulaA* cel);
  * Pos-condição: A célula permanece inalterada
  */
 char* retornaNomeAmigo(CelulaA* cel);
+
+/* Retorna a celula de pessoa de um amigo
+ * Input: Celula de um amigo
+ * Output: Ponteiro para celula de pessoa do amigo
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A celula permanece inalterada
+*/
+CelulaP* retornaCelulaPAmigo(CelulaA* amigo);
 
 #endif

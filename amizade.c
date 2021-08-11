@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include "pessoa.h"
 #include "amizade.h"
+#include "listaPessoas.h"
 
 struct celulaA {
-    Pessoa* amigo;
+    CelulaP* amigo;
     CelulaA* prox;
 };
 
@@ -35,7 +36,7 @@ CelulaA* alocaCelulaA() {
     return celula;
 }
 
-void insereListaA(ListaA* lista, Pessoa* amigo) {
+void insereListaA(ListaA* lista, CelulaP* amigo) {
     CelulaA* celula = alocaCelulaA();
     celula->amigo = amigo;
     celula->prox = NULL;
@@ -58,6 +59,9 @@ CelulaA* retornaProxAmigo(CelulaA* cel) {
 }
 
 char* retornaNomeAmigo(CelulaA* cel) {
-    return retornaNome(cel->amigo);
+    return retornaNomeCelulaP(cel->amigo);
 }
 
+CelulaP* retornaCelulaPAmigo(CelulaA* amigo) {
+    return amigo->amigo;
+}

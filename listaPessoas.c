@@ -96,11 +96,11 @@ void imprime(ListaP* lista) {
     }
 }
 
-Pessoa* retornaPessoaP(ListaP* lista, char* pessoa) {
+CelulaP* retornaPessoaP(ListaP* lista, char* pessoa) {
     CelulaP* p;
     for (p = lista->prim; p != NULL; p = p->prox) {
         if (strcmp(retornaNome(p->pessoa),pessoa) == 0) {
-            return p->pessoa;
+            return p;
         }
     }
 

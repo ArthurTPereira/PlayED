@@ -35,13 +35,13 @@ ListaA* retornaListaA(ListaP* lista, char* pessoa);
 //Função temporária
 void imprime(ListaP* lista);
 
-/* Retorna struct de pessoa
+/* Retorna celula de pessoa
  * Input: Lista de pessoas e o nome da pessoa
- * Output: Ponteiro para struct da pessoa
+ * Output: Ponteiro para celula de pessoa
  * Pre-condição: A lista existe e está corretamente alocada, e o nome da pessoa existe e está na lista
  * Pos-condição: A lista permanece inalterada
  */
-Pessoa* retornaPessoaP(ListaP* lista, char* pessoa);
+CelulaP* retornaPessoaP(ListaP* lista, char* pessoa);
 
 /* Retorna lista de playlists de uma pessoa
  * Input: Lista de pessoas e o nome da pessoa
