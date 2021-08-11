@@ -70,4 +70,20 @@ CelulaP* retornaProxPessoa(CelulaP* pessoa);
 //Função em construção
 void liberaListaP(ListaP* lista);
 
+/* Retorna a lista de playlists de uma celula de pessoa
+ * Input: Celula de uma pessoa
+ * Output: Ponteiro para lista de playlists da pessoa
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A celula permance inalterada
+*/
+ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa);
+
+/* Retorna o nome de uma pessoa a partir de sua celula
+ * Input: Celula de pessoa
+ * Output: Nome da pessoa
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A celula permanece inalterada
+*/
+char* retornaNomeCelulaP(CelulaP* pessoa);
+
 #endif

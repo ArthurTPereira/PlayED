@@ -125,3 +125,11 @@ CelulaP* retornaPrimPessoa(ListaP* lista) {
 CelulaP* retornaProxPessoa(CelulaP* pessoa) {
     return pessoa->prox;
 }
+
+ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa) {
+    return pessoa->playlists;
+}
+
+char* retornaNomeCelulaP(CelulaP* pessoa) {
+    return retornaNome(pessoa->pessoa);
+}

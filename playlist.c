@@ -92,3 +92,23 @@ Playlist* retornaProxPlaylist(Playlist* playlist) {
 char* retornaNomePlaylist(Playlist* playlist) {
     return playlist->nome;
 }
+
+ListaM* retornaListaMusicas(Playlist* playlist) {
+    return playlist->musicas;
+}
+
+void liberaListaPlaylists(ListaPlaylist* lista) {
+    Playlist* p = lista->prim;
+    Playlist* t;
+
+    while (p != NULL) {
+        t = p->prox;
+        free(p->nome);
+        p->nome = NULL;
+        free(p);
+        p = t;
+    }
+
+    free(lista);
+    lista = NULL;
+}

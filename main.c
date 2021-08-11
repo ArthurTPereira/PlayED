@@ -10,6 +10,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "listaPessoas.h"
+#include "operacoes.h"
 
 int main() {
 
@@ -38,7 +39,6 @@ int main() {
     }
 
     fclose(amizade);
-    imprime(pessoas);
    
     FILE* playlists = fopen("Entrada/playlists.txt", "r");
     
@@ -55,12 +55,8 @@ int main() {
     while(!feof(playlists)) {
         fscanf(playlists," %[^;];%d;",user,&n);
         fscanf(playlists," %[^\n]\n",playlist);
-        pt2 = strtok(playlist,";");
-       
-       
-            
-            printf("Usuario: %s\n",user);
 
+        pt2 = strtok(playlist,";");
         while (pt2 != NULL) {
             insereListaPlaylist(retornaPlaylistsP(pessoas,user),pt2);
 
@@ -72,14 +68,19 @@ int main() {
                 fscanf(musicasPlaylist," %[^\n]\n",musica);
                 insereListaM(retornaListaM(retornaPlaylistsP(pessoas,user),pt2),musica);
             }
-            printf("-----------------------------------\n");
-            imprimeMusicas(retornaListaM(retornaPlaylistsP(pessoas,user),pt2));
             pt2 = strtok(NULL,";");
         }
         fclose(musicasPlaylist);
     }
 
     fclose(playlists);
+
+    CelulaP* p;
+    ListaPlaylist* ls;
+    for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
+        ls = retornaListaPlaylistsP(p);
+        ls = recriaPlaylists(retornaListaPlaylistsP(p));
+    }
 
     return 0;
 }

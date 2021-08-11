@@ -74,3 +74,19 @@ Musica* retornaProxMusica(Musica* musica) {
 char* retornaNomeMusica(Musica* musica) {
     return musica->musica;
 }
+
+void liberaListaMusicas(ListaM* lista) {
+    Musica* p = lista->prim;
+    Musica* t;
+
+    while (p != NULL) {
+        t = p->prox;
+        free(p->musica);
+        p->musica = NULL;
+        free(p);
+        p = t;
+    }
+
+    free(lista);
+    lista = NULL;
+}

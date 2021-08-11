@@ -58,4 +58,20 @@ Playlist* retornaProxPlaylist(Playlist* playlist);
  */
 char* retornaNomePlaylist(Playlist* playlist);
 
+/* Retorna a lista de musicas de uma celula de playlist
+ * Input: Celula de uma playlist
+ * Output: Ponteiro para lista de musicas
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A celula permanece inalterada
+*/
+ListaM* retornaListaMusicas(Playlist* playlist);
+
+/* Libera a memória alocada de uma lista de playlists
+ * Input: Lista de playlists
+ * Output: Nenhum
+ * Pre-condição: A lista existe e está corretamente alocada
+ * Pos-condição: Somente a lista, a sentinela e os nomes das playlists foram liberados
+*/
+void liberaListaPlaylists(ListaPlaylist* lista);
+
 #endif

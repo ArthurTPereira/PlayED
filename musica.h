@@ -48,5 +48,12 @@ Musica* retornaProxMusica(Musica* musica);
  */
 char* retornaNomeMusica(Musica* musica);
 
+/* Libera a memória alocada de uma lista de musicas
+ * Input: Lista de musicas
+ * Output: Nenhum
+ * Pre-condição: A lista existe e está corretamente alocada
+ * Pos-condição: A lista, a sentinela e os nomes das musicas foram liberados
+*/
+void liberaListaMusicas(ListaM* lista);
 
 #endif
