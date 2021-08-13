@@ -24,6 +24,14 @@ ListaP* inicListaP();
  */
 void insereListaP(ListaP* lista, Pessoa* pessoa);
 
+/* Libera a memória alocada para uma lista de pessoas
+ * Input: Lista de pessoas
+ * Output: Nenhum
+ * Pre-condição: A lista existe e está corretamente alocada
+ * Pos-condição: A célula foi corretamente liberada
+ */
+void liberaListaP(ListaP* lista);
+
 /* Retorna lista de amigos de uma pessoa
  * Input: Ponteiro para sentinela de lista de pessoas e o nome da pessoa
  * Output: Ponteiro para sentinela de lista de amigos da pessoa
@@ -31,9 +39,6 @@ void insereListaP(ListaP* lista, Pessoa* pessoa);
  * Pos-condição: A lista permanece inalterada
  */
 ListaA* retornaListaA(ListaP* lista, char* pessoa);
-
-//Função temporária
-void imprime(ListaP* lista);
 
 /* Retorna celula de pessoa
  * Input: Lista de pessoas e o nome da pessoa
@@ -67,11 +72,6 @@ CelulaP* retornaPrimPessoa(ListaP* lista);
 */
 CelulaP* retornaProxPessoa(CelulaP* pessoa);
 
-CelulaP* retornaUltPessoa(ListaP* lista);
-
-//Função em construção
-void liberaListaP(ListaP* lista);
-
 /* Retorna a lista de playlists de uma celula de pessoa
  * Input: Celula de uma pessoa
  * Output: Ponteiro para lista de playlists da pessoa
@@ -88,10 +88,28 @@ ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa);
 */
 char* retornaNomeCelulaP(CelulaP* pessoa);
 
+/* Altera o ponteiro de uma lista de playlist de uma celula de pessoa
+ * Input: Celula de uma pessoa e o ponteiro para a nova playlist
+ * Output: Nenhum
+ * Pre-condição: A lista atual da célula de pessoa está liberada, e a nova lista de playlist está corretamente alocada
+ * Pos-condição: A nova lista de playlists foi corretamente inserida na célula
+ */
 void alteraPlaylist(ListaPlaylist* playlist, CelulaP* pessoa);
 
+/* Verifica se duas pessoas são amigas
+ * Input: Celula de duas pessoas
+ * Output: Booleano: retorna 1 se é amigo, ou 0 se não é amigo
+ * Pre-condição: As duas celulas existem e estão corretamente alocadas
+ * Pos-condição: Nenhum
+ */
 int verificaAmizade(CelulaP* pessoa1, CelulaP* amigo);
 
+/* Retorna a lista de amigos de uma célula de pessoa
+ * Input: Célula de uma pessoa
+ * Output: Ponteiro para lista de amigos da pessoa
+ * Pre-condição: A celula existe e está corretamente alocada
+ * Pos-condição: A lista permanece inalterada
+ */
 ListaA* retornaListaAmigos(CelulaP* pessoa);
 
 #endif

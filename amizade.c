@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "pessoa.h"
 #include "amizade.h"
-#include "listaPessoas.h"
 
 struct celulaA {
     CelulaP* amigo;
@@ -62,6 +60,16 @@ char* retornaNomeAmigo(CelulaA* cel) {
     return retornaNomeCelulaP(cel->amigo);
 }
 
-CelulaP* retornaCelulaPAmigo(CelulaA* amigo) {
-    return amigo->amigo;
+void liberaListaAmigos(ListaA* lista) {
+    CelulaA* p = lista->prim;
+    CelulaA* t;
+
+    while (p != NULL) {
+        t = p->prox;
+        free(p);
+        p = t;
+    }
+
+    free(lista);
+    lista = NULL;
 }

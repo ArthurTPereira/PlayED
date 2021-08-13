@@ -21,9 +21,6 @@ ListaM* inicListaM();
  */
 void insereListaM(ListaM* lista, char* musica);
 
-//Função temporária
-void imprimeMusicas(ListaM* lista);
-
 /* Retorna primeira celula de musica de uma lista
  * Input: Lista de musicas
  * Output: Ponteiro para primeira celula da lista

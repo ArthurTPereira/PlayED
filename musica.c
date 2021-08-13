@@ -27,6 +27,12 @@ ListaM* inicListaM() {
     return lista;
 }
 
+/* Faz a alocação de uma célula de músicas
+ * Input: Nenhum
+ * Output: Ponteiro para celula de musicas alocada
+ * Pre-condição: Nenhum
+ * Pos-condição: A celula foi corretamente alocada
+ */
 Musica* alocaCelulaM() {
     Musica* musica = (Musica*) malloc(sizeof(Musica));
     if (musica == NULL) {
@@ -54,13 +60,6 @@ void insereListaM(ListaM* lista, char* musica) {
     
     lista->ult = music;
 
-}
-
-void imprimeMusicas(ListaM* lista) {
-    Musica* p;
-    for (p = lista->prim; p != NULL; p = p->prox) {
-        printf("%s\n",p->musica);
-    }
 }
 
 Musica* retornaPrimMusica(ListaM* lista) {

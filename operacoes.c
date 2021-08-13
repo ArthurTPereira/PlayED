@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include "listaPessoas.h"
@@ -15,6 +14,7 @@
 int buscaPlaylist(ListaPlaylist* lista,char* playlist) {
     Playlist* p = retornaPrimPlaylist(lista);
     while (p != NULL) {
+        //Verifica se o nome da playlist é igual ao nome da playlist atual
         if (strcmp(retornaNomePlaylist(p),playlist) == 0) {
             return 1;
         }
@@ -24,14 +24,24 @@ int buscaPlaylist(ListaPlaylist* lista,char* playlist) {
     return 0;
 }
 
+/* Faz o trim de uma string
+ * Input: Ponteiro para uma string
+ * Output: Ponteiro para a string inicial sem espaços no final
+ * Pre-condição: A string existe
+ * Pos-condição: A string foi corretamente alterada
+ */
 char* trim(char *s) {
     char *ptr;
-    if (!s)
-        return NULL;   // handle NULL string
-    if (!*s)
-        return s;      // handle empty string
+    if (s == NULL) {
+        return NULL;
+    }
+    if (!*s) {
+        return s;
+    }
+
     for (ptr = s + strlen(s) - 1; (ptr >= s) && isspace(*ptr); --ptr);
     ptr[1] = '\0';
+
     return s;
 }
 
@@ -46,20 +56,26 @@ ListaPlaylist* recriaPlaylists(ListaPlaylist* lista) {
     char temp[30];
     char artista[30];
 
+    //Faz a varredura para as playlists da lista
     for (p = retornaPrimPlaylist(lista); p != NULL; p = retornaProxPlaylist(p)) {
+        //Faz a varredura para as musicas da playlist atual
         for (m = retornaPrimMusica(retornaListaMusicas(p)); m != NULL; m = retornaProxMusica(m)) {
+            //Extrai o nome do artista/banda
             strcpy(musica,retornaNomeMusica(m));
             sscanf(musica," %[^-]",temp);
             strcpy(artista,trim(temp));
 
+            //Verifica se a lista nova está vazia
             if (retornaPrimPlaylist(nova) == NULL) {
                 insereListaPlaylist(nova,artista);
             } else {
+                //Verifica se a playlist do artista/banda ja existe
                 if (buscaPlaylist(nova,artista) == 0) {
                     insereListaPlaylist(nova,artista);
                 }
             }
 
+            //Faz a varredura nas playlists e insere as musicas correspondentes
             for (q = retornaPrimPlaylist(nova); q != NULL; q = retornaProxPlaylist(q)) {
                 if (strcmp(retornaNomePlaylist(q),artista) == 0) {
                     insereListaM(retornaListaMusicas(q),musica);
@@ -68,6 +84,7 @@ ListaPlaylist* recriaPlaylists(ListaPlaylist* lista) {
         }
     }
 
+    //Libera as musicas e a lista de playlists antiga
     for (p = retornaPrimPlaylist(lista); p != NULL; p = retornaProxPlaylist(p)) {
         liberaListaMusicas(retornaListaMusicas(p));
     }
@@ -84,11 +101,17 @@ int verificaMusicasIguais(ListaPlaylist* lista1, ListaPlaylist* lista2) {
     Musica* r;
     Musica* s;
 
+    //Faz a varredura para a primeira lista de playlists
     for (p = retornaPrimPlaylist(lista1); p != NULL; p = retornaProxPlaylist(p)) {
+        //Faz a varredura para a segunda lista de playlists
         for (q = retornaPrimPlaylist(lista2); q != NULL; q = retornaProxPlaylist(q)) {
+            //Verifica se as playlists possuem nomes iguais
             if (strcmp(retornaNomePlaylist(p),retornaNomePlaylist(q)) == 0) {
+                //Faz a varredura para as musicas da playlist da lista 1
                 for (r = retornaPrimMusica(retornaListaMusicas(p)); r != NULL; r = retornaProxMusica(r)) {
+                    //Faz a varredura para as musicas da playlist da lista 2
                     for (s = retornaPrimMusica(retornaListaMusicas(q)); s != NULL; s = retornaProxMusica(s)) {
+                        //Verifica se os nomes das musicas sao iguais
                         if (strcmp(retornaNomeMusica(r),retornaNomeMusica(s)) == 0) {
                             qtd++;
                         }

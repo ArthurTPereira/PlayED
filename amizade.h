@@ -34,9 +34,6 @@ CelulaA* alocaCelulaA();
  */
 void insereListaA(ListaA* lista, CelulaP* amigo);
 
-//Função em construção
-void liberaListaA(ListaA* lista);
-
 /* Retorna primeira celula da lista de amigos
  * Input: Lista de amigos
  * Output: Ponteiro para primeira celula da lista de amigos
@@ -61,12 +58,12 @@ CelulaA* retornaProxAmigo(CelulaA* cel);
  */
 char* retornaNomeAmigo(CelulaA* cel);
 
-/* Retorna a celula de pessoa de um amigo
- * Input: Celula de um amigo
- * Output: Ponteiro para celula de pessoa do amigo
- * Pre-condição: A celula existe e está corretamente alocada
- * Pos-condição: A celula permanece inalterada
-*/
-CelulaP* retornaCelulaPAmigo(CelulaA* amigo);
+/* Libera a memória alocada para uma lista de amigos
+ * Input: Lista de amigos
+ * Output: Nenhum
+ * Pre-condição: A lista existe e está corretamente alocada
+ * Pos-condição: A lista foi corretamente liberada
+ */
+void liberaListaAmigos(ListaA* lista);
 
 #endif

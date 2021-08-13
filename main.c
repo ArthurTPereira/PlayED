@@ -14,15 +14,19 @@
 
 int main() {
 
+    //Cria a pasta de saída
     mkdir("Saida",0777);
 
+    //Abre o arquivo amizade.txt
     FILE *amizade = fopen("Entrada/amizade.txt","r");
 
+    //Inicia a lista de pessoas
     ListaP* pessoas = inicListaP();
-    
-    char linha[1000];
-    fscanf(amizade," %[^\n]\n",linha);
 
+    char linha[1000];
+
+    //Faz o scan da linha de nomes, depois separa os nomes e insere na lista de pessoas
+    fscanf(amizade," %[^\n]\n",linha);
     char* pt = strtok(linha,";");
     while (pt != NULL) {
         Pessoa* pessoa = criaPessoa(pt);
@@ -32,12 +36,13 @@ int main() {
 
     char amigo1[100];
     char amigo2[100];
+
+    //Faz a inserção das amizades na lista de amigos de cada pessoa
     while(!feof(amizade)) {
         fscanf(amizade," %[^;];%s",amigo1,amigo2);
         insereListaA(retornaListaA(pessoas,amigo1),retornaPessoaP(pessoas,amigo2));
         insereListaA(retornaListaA(pessoas,amigo2),retornaPessoaP(pessoas,amigo1));
     }
-
     fclose(amizade);
    
     FILE* playlists = fopen("Entrada/playlists.txt", "r");
@@ -52,6 +57,7 @@ int main() {
     FILE* musicasPlaylist;
     char musica[100];
 
+    //Faz a leitura dos nomes das playlists e insere na lista de playlists de cada usuário
     while(!feof(playlists)) {
         fscanf(playlists," %[^;];%d;",user,&n);
         fscanf(playlists," %[^\n]\n",playlist);
@@ -64,57 +70,65 @@ int main() {
             strcat(InputPath,pt2);
             musicasPlaylist = fopen(InputPath,"r");
 
+            //Faz a leitura dos nomes das músicas e insere na lista de músicas da playlist atual
             while (!feof(musicasPlaylist)) {
                 fscanf(musicasPlaylist," %[^\n]\n",musica);
                 insereListaM(retornaListaM(retornaPlaylistsP(pessoas,user),pt2),musica);
             }
             pt2 = strtok(NULL,";");
+            fclose(musicasPlaylist);
         }
-        fclose(musicasPlaylist);
     }
 
     fclose(playlists);
 
     CelulaP* p;
     ListaPlaylist* ls;
+
+    //Recria as playlists dos usuários, separando por artista/banda
     for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
-        ls = retornaListaPlaylistsP(p);
         ls = recriaPlaylists(retornaListaPlaylistsP(p));
         alteraPlaylist(ls,p);
     }
 
     int count;
     char destino[100];
-    char nome[30];
     char nomePlaylist[30];
     Playlist* play;
     Musica* nomeMusica;
     FILE* novaPlaylist;
     FILE* playedRefatorada = fopen("Saida/played-refatorada.txt","w");
+
+    //Imprime as playlists nos arquivos de destino
+    //Faz a varredura para cada usuario
     for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
         count = 0;
         strcpy(destino,"Saida/");
-        strcpy(nome,retornaNomeCelulaP(p));
-        strcat(destino,nome);
+        strcpy(user,retornaNomeCelulaP(p));
+        strcat(destino,user);
         strcat(destino,"/");
         mkdir(destino,0777);
 
+        //Faz a varredura para cada playlist do usuario
         for (play = retornaPrimPlaylist(retornaListaPlaylistsP(p)); play != NULL; play = retornaProxPlaylist(play)) {
             count++;
             strcpy(destino,"Saida/");
-            strcat(destino,nome);
+            strcat(destino,user);
             strcat(destino,"/");
             
             strcat(destino,retornaNomePlaylist(play));
             strcat(destino,".txt");
             novaPlaylist = fopen(destino,"w");
+
+            //Faz a varredura para cada música da playlist
             for (nomeMusica = retornaPrimMusica(retornaListaMusicas(play)); nomeMusica != NULL; nomeMusica = retornaProxMusica(nomeMusica)) {
                 fprintf(novaPlaylist,"%s\n",retornaNomeMusica(nomeMusica));
             }
+            fclose(novaPlaylist);
         }
-        fclose(novaPlaylist);
-        
-        fprintf(playedRefatorada,"%s;%d",nome,count);
+
+        //Imprime as playlists refatoradas
+        fprintf(playedRefatorada,"%s;%d",user,count);
         for (play = retornaPrimPlaylist(retornaListaPlaylistsP(p)); play != NULL; play = retornaProxPlaylist(play)) {
             strcpy(nomePlaylist,retornaNomePlaylist(play));
             strcat(nomePlaylist,".txt");
@@ -126,15 +140,27 @@ int main() {
     
 
     FILE* similaridades = fopen("Saida/similaridades.txt","w");
-    CelulaA* amigo;
+    CelulaP* q;
 
+    //Imprime as amizades e a quantidade de músicas similares
     for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
-        for (amigo = retornaPrimAmigo(retornaListaAmigos(p)); amigo != NULL; amigo = retornaProxAmigo(amigo)) {
-                fprintf(similaridades,"%s;%s;%d\n",retornaNomeCelulaP(p),retornaNomeAmigo(amigo),verificaMusicasIguais(retornaListaPlaylistsP(p),retornaListaPlaylistsP(retornaCelulaPAmigo(amigo))));
+        for (q = retornaProxPessoa(p); q != NULL; q = retornaProxPessoa(q)) {
+            if (verificaAmizade(p,q) == 1) {
+                fprintf(similaridades,"%s;%s;%d\n",retornaNomeCelulaP(p),retornaNomeCelulaP(q),verificaMusicasIguais(retornaListaPlaylistsP(p),retornaListaPlaylistsP(q)));
             }
         }
-
+    }
     fclose(similaridades);
 
+    //Libera a memória alocada para todas as listas
+    for (p = retornaPrimPessoa(pessoas); p != NULL; p = retornaProxPessoa(p)) {
+        for (play = retornaPrimPlaylist(retornaListaPlaylistsP(p)); play != NULL; play = retornaProxPlaylist(play)) {
+            liberaListaMusicas(retornaListaMusicas(play));
+        }
+        liberaListaPlaylists(retornaListaPlaylistsP(p));
+        liberaListaAmigos(retornaListaAmigos(p));
+    }
+    liberaListaP(pessoas);
+    
     return 0;
 }

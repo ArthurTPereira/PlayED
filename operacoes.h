@@ -11,6 +11,12 @@
 */
 ListaPlaylist* recriaPlaylists(ListaPlaylist* lista);
 
+/* Verifica e retorna a quantidade de músicas iguais entre duas listas de playlists
+ * Input: Duas listas de playlists
+ * Output: Número de músicas iguais entre as duas listas de playlists
+ * Pre-condição: As duas listas existem e estão corretamente alocadas
+ * Pos-condição: As listas permanecem inalteradas
+ */
 int verificaMusicasIguais(ListaPlaylist* lista1, ListaPlaylist* lista2);
 
 #endif

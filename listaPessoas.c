@@ -22,14 +22,19 @@ ListaP* inicListaP() {
         printf("Falha na alocação.\n");
         return NULL;
     }
-    
-    
+
     lista->prim = NULL;
     lista->ult = NULL;
     
     return lista;
 }
 
+/* Faz a alocação de uma célula de pessoa
+ * Input: Nenhum
+ * Output: Ponteiro para célula de pessoa alocada
+ * Pre-condição: Nenhum
+ * Pos-condição: A célula foi corretamente alocada
+ */
 CelulaP* criaCelulaP() {
     CelulaP* celula = (CelulaP*) malloc(sizeof(CelulaP));
     if (celula == NULL) {
@@ -63,35 +68,24 @@ void liberaListaP(ListaP* lista) {
 
     while (p != NULL) {
         t = p->prox;
+        if (p->pessoa != NULL) {
+            destroiPessoa(p->pessoa);
+        }
+                
         free(p);
         p = t;
     }
 
     free(lista);
+    lista = NULL;
 }
 
 ListaA* retornaListaA(ListaP* lista, char* pessoa) {
-    CelulaP* p = lista->prim;
+    CelulaP* p;
 
     for (p = lista->prim; p != NULL; p = p->prox) {
         if (strcmp(retornaNome(p->pessoa),pessoa) == 0) {
             return p->amigos;
-        }
-    }
-}
-
-void imprime(ListaP* lista) {
-    CelulaP* p;
-    for ( p = lista->prim; p != NULL; p = p->prox ) {
-        printf("Amigos de %s:\n",retornaNome(p->pessoa));
-
-        CelulaA* t = retornaPrimAmigo(p->amigos);
-        if (t == NULL) {
-            printf("Nenhum\n");
-        } else {
-            for ( t; t != NULL ; t = retornaProxAmigo(t)) {
-                printf("%s\n",retornaNomeAmigo(t));
-            }
         }
     }
 }
@@ -124,10 +118,6 @@ CelulaP* retornaPrimPessoa(ListaP* lista) {
 
 CelulaP* retornaProxPessoa(CelulaP* pessoa) {
     return pessoa->prox;
-}
-
-CelulaP* retornaUltPessoa(ListaP* lista) {
-    return lista->ult;
 }
 
 ListaPlaylist* retornaListaPlaylistsP(CelulaP* pessoa) {

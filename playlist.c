@@ -28,6 +28,12 @@ ListaPlaylist* inicListaPlaylists() {
     return lista;
 }
 
+/* Faz a alocação de uma celula de playlist
+ * Input: Nenhum
+ * Output: Ponteiro para celula de playlist alocada
+ * Pre-condição: Nenhum
+ * Pos-condição: A celula foi corretamente alocada
+ */
 Playlist* criaCelulaPlaylist() {
     Playlist* play = (Playlist*) malloc(sizeof(Playlist));
 
@@ -61,13 +67,6 @@ void insereListaPlaylist(ListaPlaylist* lista, char* playlist) {
     
     lista->ult = play;
 
-}
-
-void imprimeplaylists(ListaPlaylist* lista) {
-    Playlist* p;
-    for (p = lista->prim; p != NULL; p = p->prox) {
-        printf("Playlist: %s\n",p->nome);
-    }
 }
 
 ListaM* retornaListaM(ListaPlaylist* lista, char* playlist) {
