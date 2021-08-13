@@ -16,15 +16,16 @@ all: $(PROJ_NAME)
 
 $(PROJ_NAME): $(OBJ)
 	$(CC) -o $@ $^ -lm
+	rm -rf *.o
 
 %.o: %.c %.h
-	$(CC) -o $@ $< $(CC_FLAGS) -lm
+	$(CC) -o $@ $< $(CC_FLAGS)
 
 main.o: main.c $(H.SOURCE)
-	$(CC) -o $@ $< $(CC_FLAGS) -lm
+	$(CC) -o $@ $< $(CC_FLAGS)
 
 run:
-	./PlayED
+	./$(PROJ_NAME)
 
 clean:
-	rm -rf *.o *~ PlayED
+	rm -rf *.o *~ $(PROJ_NAME)
